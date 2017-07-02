@@ -26,7 +26,6 @@
       		<mainClass>com.greatwebguy.application.MobTime</mainClass>
       		<appName>MobTime</appName>
       		<nativeReleaseVersion>1.6.3</nativeReleaseVersion>
-      		<nativeInstallers />
       	</configuration>
       </plugin>
     </plugins>
@@ -42,5 +41,10 @@
 	    <artifactId>commons-lang3</artifactId>
 	    <version>3.4</version>
 	</dependency>
+    <dependency>
+        <groupId>javazoom</groupId>
+        <artifactId>jlayer</artifactId>
+        <version>1.0.1</version>
+    </dependency>
   </dependencies>
 </project>

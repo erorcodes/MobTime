@@ -1,6 +1,9 @@
 package com.greatwebguy.application;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -49,6 +52,9 @@ public class TimeController implements Initializable {
 	private Button skipButton;
 
 	@FXML
+	private Button microphoneButton;
+
+	@FXML
 	private Button settingsButton;
 
 	@FXML // fx:id="timerLabel"
@@ -63,12 +69,15 @@ public class TimeController implements Initializable {
 	@FXML
 	private AnchorPane bottomPane;
 
+
+
 	@Override // This method is called by the FXMLLoader when initialization is
 				// complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		assert startButton != null : "fx:id=\"startButton\" was not injected: check your FXML file 'application.fxml'.";
 		assert stopButton != null : "fx:id=\"stopButton\" was not injected: check your FXML file 'application.fxml'.";
 		assert pauseButton != null : "fx:id=\"pauseButton\" was not injected: check your FXML file 'application.fxml'.";
+		assert microphoneButton != null : "fx:id=\"microphoneButton\" was not injected: check your FXML file 'application.fxml'.";
 		assert skipButton != null : "fx:id=\"skipButton\" was not injected: check your FXML file 'application.fxml'.";
 		assert settingsButton != null : "fx:id=\"settingsButton\" was not injected: check your FXML file 'application.fxml'.";
 		assert timerLabel != null : "fx:id=\"timerLabel\" was not injected: check your FXML file 'application.fxml'.";
@@ -83,6 +92,11 @@ public class TimeController implements Initializable {
 		nextTurnLabel.textProperty().bind(Settings.instance().nextUserMessage);
 		bottomPane.styleProperty().bind(paneColor);
 		Settings.instance().displayUserMessage();
+
+		if (checkConnectivity()) {
+			System.out.println("set button visible");
+			microphoneButton.setVisible(true);
+		}
 
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -158,6 +172,17 @@ public class TimeController implements Initializable {
 				}
 			}
 		});
+	}
+
+	private boolean checkConnectivity() {
+		try {
+			try (Socket soc = new Socket()) {
+				soc.connect(new InetSocketAddress("api.wit.ai", 443), 3000);
+			}
+			return true;
+		} catch (IOException ex) {
+			return false;
+		}
 	}
 
 	private void showRotate() {

@@ -60,6 +60,14 @@
                         <Glyph fontFamily="FontAwesome" icon="PLAY" styleClass="toolbar-button" />
                      </graphic>
                   </Button>
+                  <Button fx:id="microphoneButton" contentDisplay="GRAPHIC_ONLY" layoutX="183.0" layoutY="10.0" mnemonicParsing="false" styleClass="toolbar-button" text="Microphone" textFill="WHITE" visible="false">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="MICROPHONE" styleClass="toolbar-button" />
+                     </graphic>
+                  </Button>
               </items>
             </ToolBar>
          </children>
